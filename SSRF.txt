@@ -1,0 +1,9 @@
+
+
+
+
+	crtl + u		   -encode
+	crtl + shift + u   -decode
+	
+	
+	

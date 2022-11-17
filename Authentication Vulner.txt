@@ -1,0 +1,9 @@
+
+
+
+	- Password Reset Broken Logic
+			while reset password link, capture the forgot password link and remove session-token 
+			 send repeater request. check response 302 found which means it work without session-token.
+				then password can be bypass.
+			 
+	- 

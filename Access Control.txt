@@ -1,0 +1,100 @@
+
+
+	<Access Control>
+		
+	
+	#From a user perspective, access controls can be divided into the following categories:
+		+ Vertical access controls		-  Vertical access controls are mechanisms that restrict access to sensitive functionality that is not available to other types of users. 
+		+ Horizontal access controls	-  Horizontal access controls are mechanisms that restrict access to resources to the users who are specifically allowed to access those resources. 
+												for example, a banking application will allow a user to view transactions and make payments from their own accounts.
+		
+		+ Context-dependent access controls  
+				
+		
+	#Examples of broken access controls
+		
+		@@@Vertical privilege escalation
+				+ Unprotected functionality 
+				+ Parameter-based access control methods 
+				+ Broken access control resulting from platform misconfiguration
+
+
+			Some application frameworks support various non-standard HTTP headers that can be used to override the URL in the original request,
+				such as X-Original-URL and X-Rewrite-URL
+		
+		
+		@@@Horizontal privilege escalation
+					Horizontal to vertical privilege escalation
+					
+					
+		@@@ IDOR (Insecure direct object references)
+					
+					
+		@@Access control vulnerabilities in multi-step processes
+					Referer-based access control
+					Location-based access control
+									
+					
+		%%%%	How to prevent access control vulnerabilities  %%%%
+					
+------------------------------------------------------------------------------------------------------------------------------------------------------
+				
+					+ Unprotected functionality 
+							(Go to the lab and view robots.txt.. and find what disallows then add it to after url link /administrator-panel)
+					
+					+ Parameter-based access control methods 
+							(right click for source-code then check javaScript that discloses the URL of the admin panel)
+					
+					+ Broken access control resulting from platform misconfiguration
+							(login using regular credential then try to previledge escalation who has admin previledge account like admin/root/administrator
+								
+								GET /my-account HTTP/1.1
+								Host: 0ae60045047c332ec042c1870033000c.web-security-academy.net
+								Cookie: Admin=false; session=vkuUKAcPVURKDXPFkhLl14NrWGJsDSrM
+							
+								GET /admin HTTP/1.1
+								Host: 0ae60045047c332ec042c1870033000c.web-security-academy.net
+								Cookie: Admin=true; session=vkuUKAcPVURKDXPFkhLl14NrWGJsDSrM
+					
+					+ User role can be modified in user profile		
+								capture email address associated. add "roleid":2 into the JSON in the request body and resend it.. 
+										then again send request adding /admin
+			
+						
+					+ User ID controlled by request parameter 
+								login to regular credential and then change the "id" parameter to name (parameter). 
+
+					
+					+ User ID controlled by request parameter, with unpredictable user IDs 
+								click carlos and observe that the URL contains his user ID. Make a note of this ID. 
+								Log in using the supplied credentials and access your account page. 
+								
+					
+					+ User ID controlled by request parameter with data leakage in redirect
+					
+					+ User ID controlled by request parameter with password disclosure
+								Log in using the supplied credentials and access the user account page
+								Change the "id" parameter in the URL to administrator
+								View the response in Burp and observe that it contains the administrator's password
+								
+						
+					+ Insecure direct object references
+								Select the Live chat tab  and send a message and then select View transcript.
+								Review the URL and observe that the transcripts are text files assigned a filename containing an incrementing number.
+								Change the filename to 1.txt and review the text. Notice a password within the chat transcript.
+								
+								--------------------------------------
+					
+					++++ URL-based access control can be circumvented
+								Try to load /admin and observe that you get blocked.
+								add this after host "X-Original-URL" header to /admin   
+								To delete the user carlos, add ?username=carlos to the real query string and change the X-Original-URL path to /admin/delete
+								
+							
+					++++ Method-based access control can be circumvented
+								
+							
+					
+					
+					
+	
