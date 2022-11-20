@@ -1,0 +1,27 @@
+
+
+	<Directory traversal>
+	
+	- file path traversal	
+			modify the "filename" parameter and giving it the value	 to  ../../../etc/passwd
+
+	
+	- file path traversal and traversal sequences blocked with absolute path bypass to /etc/passwd
+
+
+	- file path traversal and traversal sequences stripped non-recursively			
+			modify the filename parameter and giving it the value to	 ....//....//....//etc/passwd
+
+
+
+	- file path traversal and traversal sequences stripped with superfluous URL-decode 
+			modify the filename parameter and giving it the value to 	..%252f..%252f..%252fetc/passwd    (2 times encoding)
+						../../../  ->   ..%2F..%2F..%2F   -> ..%252f..%252f..%252f
+
+
+	- file path traversal and validation of start of path
+			modify the filename parameter, giving it the value  /var/www/images/../../../etc/passwd
+
+	
+	- file path traversal and validation of file extension with null byte bypass
+			
