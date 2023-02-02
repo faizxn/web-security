@@ -1,0 +1,8 @@
+
+jwt 
+
+1. (JWT authentication bypass via unverified signature) - capture jwt-session-token change user role and url path.
+2. (JWT authentication bypass via flawed signature verification) - capture jwt-session-token change user role and algorithm to none and url path.
+3. (JWT authentication bypass via weak signing key) - capture jwt-session-token then brute-force attack using hascat-jhon. after getting weak-signing key. modify it with signature password and update payload portion accordingly.
+4. (Injecting self-signed JWTs via the jwk parameter) - capture jwt-session-token then generate rsa-key 2048 (jwt editor keys) and append it to header and forward request.
+5. (Injecting self-signed JWTs via the jku parameter) - 
