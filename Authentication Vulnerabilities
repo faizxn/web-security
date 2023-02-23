@@ -1,0 +1,40 @@
+
+
+
+	#Authentication Vulnerabilities#
+	
+		[Username enumeration via different responses]	- It has an account with a predictable username and password, which can be found in the following wordlists
+
+			first enumerate username using Sniper-Attack. <Check status code and error status message> 
+			
+				Invalid-Error show not matching username
+				Passowrd-Error show to matching username
+				
+				then select the username and brute-force for password 
+				
+		
+		[2FA simple bypass]
+		
+			log in to your own account. 2FA verification code will be sent to email. submit the OTP. and Copy the URL patten /my-account
+				after log-out then log-in victim user, it will ask OTP.. to bypass this OTP place /my-account in the URL.
+					the it will bypass automatically
+					
+					
+		
+		[Password reset broken logic]
+		
+			observe that the reset token is provided as a URL query parameter in the reset email. 
+				notice that when you submit your new password, the POST "/forgot-password?temp-forgot-password-token" request contains the username as hidden input. 
+					send this request to Burp Repeater.
+					
+			in Burp Repeater, observe that the password reset functionality still works even if you delete the value of the temp-forgot-password-token parameter
+				in both the URL and request body. This confirms that the token is not being checked when you submit the new password.
+		
+			In Burp Repeater, delete the value of the temp-forgot-password-token parameter in both the URL and request body. 
+				Change the username parameter to carlos. Set the new password to whatever you want and send the request.
+				
+				
+			
+	
+		[Username enumeration via subtly different responses]
+			
