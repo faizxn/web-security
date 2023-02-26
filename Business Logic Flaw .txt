@@ -1,5 +1,39 @@
 
 
- <Business Logic Flaws>
- 
- 
+	#Excessive trust in client-side controls#
+	
+		in Burp, go to "Proxy" > "HTTP history" and study the order process. 
+		notice that when you add an item to your cart, the corresponding request contains a price parameter. 
+		send the POST /cart request to Burp Repeater.
+		
+		Account credit balance is $100, but $0.01 for each. price has no sanitization/filter. 	
+			 productId=1&redir=PRODUCT&quantity=1&price=1
+			
+			
+			
+	
+	#High-level logic vulnerability#
+
+		Go to the "Intercept" tab and turn on interception. Add another item to your cart and go to the intercepted POST /cart request in Burp
+		
+			[here there is not price field available] 
+		
+			Store credit: $100.00
+			
+			Lightweight "l33t" Leather Jacket	price is set_to $1330 for quantity (1)
+			
+			so, to reduce the price of the product, we have to add product with negative (-quantity)
+			while the value is less to $100 
+			
+			then place the order.
+			
+			
+	
+			
+			
+			
+			
+			
+			
+		
+			
