@@ -5,8 +5,9 @@
 		[Information disclosure in error messages]
 		
 			GET /product?productId=1			|| this url returns integer vaule
-			GET /product?productId=examples		|| pass string replacing integer value then find output of error messages
 			
+			GET /product?productId=examples			|| pass string replacing integer value then find output of error messages
+			GET /product?productId="examples"					
 			
 			
 		[Information Disclosure on Debug Page]
