@@ -1,0 +1,23 @@
+
+CSRF  (token is valid till from existing from requst)
+	
+	- CSRF vulnerability with no defenses
+				+ there is no csrf-token to validate, we can create csrf poc to create crafted html to send to intruders
+
+	
+	- CSRF where token validation depends on request method
+				+ change request method to GET from POST. then create csrf poc to create crafted html to send to intruders
+ 
+				
+	- CSRF where token validation depends on token being present
+				+ remove the csrf token and see if application accept the requst
+				+ modify csrf-token with request
+				+ change the request method 
+							
+	- CSRF where token is not tied to user session
+				+ two account is required to test this, from first account capture the request, from another account capture the same requst and copy the token 
+						and request the token with first account using following token. 
+						
+						
+	- 
+						
