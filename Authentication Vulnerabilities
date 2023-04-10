@@ -38,3 +38,28 @@
 	
 		[Username enumeration via subtly different responses]
 			
+
+
+
+		[Username enumeration via response timing]
+	
+		X-Forwarded-For: is used to bypass ip address block-listing
+			
+		after multiple times attemps of login, it blocks login for 30 mins. add X-Forwarded-For with any random value.
+			it will bypass ip-address
+			
+		send the request to intruder. 
+		
+		X-Forwarded-For: §1§	1-> auto increment 1 to 100 by 1 for request		with pictfork attacks
+		username=§admin§		2-> random username 
+		
+		set a long-range-password, if username is match then it tries to match password. and response will delay due to this.
+			we get username and then set username and set password brute-force attacks
+
+
+		
+
+
+
+		
+		
