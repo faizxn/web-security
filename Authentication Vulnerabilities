@@ -56,12 +56,24 @@
 		set a long-range-password, if username is match then it tries to match password. and response will delay due to this.
 			we get username and then set username and set password brute-force attacks
 
-
 		while attacks, check response-receive time at colums.
 		
 		
 
+		[Broken brute-force protection, IP block]
+	
+		observe that your IP is temporarily blocked if you submit 3 incorrect logins in a row.
+		or after two fails username for login, it will block login. but one valid login then it clear fails attemps login.
+
+		add valid credential for login to clear fails attemps
+			add specific username and match dictionary password
+				after 2 times fails login add valid credential.
+				
 		
+		
+		
+				
+				
 
 
 
