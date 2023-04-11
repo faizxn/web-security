@@ -140,8 +140,16 @@
 
 
 
+
 	[2FA bypass using a brute-force attack]
-			
+
+		login user and password, ask for OTP if two wrong OTP is enter then it automatically log-out
+
+		need to keep session running, project-options-> sessions-> add session rules-> run a macros
+		from http-history, send first login2 request to intruder
+			send range otp request 1-9999
+
+		if otp is match, then return 302 status code.
 		
 		
 			
