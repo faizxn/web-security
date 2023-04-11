@@ -41,6 +41,9 @@
 				
 					+ Unprotected functionality 
 							(Go to the lab and view robots.txt.. and find what disallows then add it to after url link /administrator-panel)
+							
+							we can also do this using directory brute-forcing attack i.e gobuster/dirbuster.. 
+					
 					
 					+ Parameter-based access control methods 
 							(right click for source-code then check javaScript that discloses the URL of the admin panel)
