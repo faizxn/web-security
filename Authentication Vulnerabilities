@@ -71,8 +71,11 @@
 				
 		
 		
-		
-				
+		[Username enumeration via account lock]
+	
+		use provided username list and random password with 5 times for each username -> cluster-bomb
+		check status code/response to get username or enumerate username
+		set that username and sniper the attack for password 				
 				
 
 
