@@ -131,8 +131,17 @@
 		
 		
 
+	[Broken brute-force protection, multiple credentials per request]
 
-		
+		As observed, bothe username and password are JSON format in header section.
+	
+		now add set of password in json with username if any password is match, then it will return 302 redirect status code.  
+		follow-direction and show response in browser, loggined as carlos user
+
+
+
+	[2FA bypass using a brute-force attack]
+			
 		
 		
 			
