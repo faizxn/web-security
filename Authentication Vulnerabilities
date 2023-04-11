@@ -80,5 +80,19 @@
 
 
 
+		[2FA broken logic]
+	
+		use valid username and password, check the process OTP. then logout that user.
+			check browser history where u get GET /login2, username is set to cookie
+				send it to repeater and rename the username
+					
+		again check the browser history, check OTP history and send it to intruder. 
+			edit username to carlos and verify of otp 1-9999
+				
+			
+			
+			
+			
+
 		
 		
