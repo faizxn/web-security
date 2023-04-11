@@ -92,6 +92,35 @@
 			
 			
 			
+		[Brute-forcing a stay-logged-in cookie]
+	
+		check the login cookie at browser inspector->application->cookie	
+			
+		d2llbmVyOjUxZGMzMGRkYzQ3M2Q0M2E2MDExZTllYmJhNmNhNzcw		-base64encode
+		wiener:51dc30ddc473d43a6011e9ebba6ca770 					-base64decode
+		51dc30ddc473d43a6011e9ebba6ca770:peter						-md5 hash		
+		wiener:peter												username:password
+		
+		session will be same, but check "stay-logged-in" 
+		
+		base64(username+':'+md5HashOfPassword)
+		
+		Hash: MD5
+		Add prefix: wiener:
+		Encode: Base64-encode
+		
+		As the Update email button is only displayed when you access the /my-account page in an authenticated state.
+		
+		
+		
+		
+		
+
+
+		
+		
+		
+			
 			
 
 		
