@@ -1,5 +1,10 @@
 
 
+wfuzz -c -z file,/usr/share/wordlists/wfuzz/Injections/SQL.txt -d "id=FUZZ" -u http://<>
+
+
+
+
 https://portswigger.net/web-security/all-labs
 
 
