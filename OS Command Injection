@@ -7,6 +7,10 @@
 		modify the storeID=1parameter.. giving it the value 1|whoami/id
 			encoding URL of command.. 
 
+				& whoami #
+
+			if u see, & value then try adding os-command using & between other parameter and end with # sign
+
 			## in real-application check every point of parameter in the application sending os-command #
 		
 		
