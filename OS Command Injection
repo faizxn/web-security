@@ -5,7 +5,9 @@
 	[OS Command Injection -Simple Case]
 	
 		modify the storeID=1parameter.. giving it the value 1|whoami/id
-		
+			encoding URL of command.. 
+
+			## in real-application check every point of parameter in the application sending os-command #
 		
 		
 	[Blind-OS command injection with time delays]
