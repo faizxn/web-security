@@ -1,0 +1,16 @@
+
+
+
+To check this vulerablity .. Add "Origin: www.example.com" at Request Header. 
+
+
+Access-Control-Allow-Origin: * 
+Access-Control-Allow-Origin: null
+Access-Control-Allow-Origin: example-allowed.com
+
+
+Access-Control-Allow-Scheme: true
+
+
+
+XMLHttpRequest 
