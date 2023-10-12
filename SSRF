@@ -81,7 +81,7 @@
 		visit a product and intercept the request in Burp Suite and send it to Burp Repeater.
 		
 
-		select "Insert Collaborator Payload" to replace the original domain with a Burp Collaborator generated domain. Send the request.
+		select "Insert Collaborator Payload" to replace the REFERER HEADER with a Burp Collaborator generated domain. Send the request.
 		Go to the Collaborator tab, and click "Poll now". If you don't see any interactions listed, wait a few seconds and try again, since the server-side command is executed asynchronously.
 		and webhook.net 
 		
