@@ -12,8 +12,8 @@ https://portswigger.net/web-security/all-labs
 	
 		
 select * from customers where city = 'london'					|| show only city 
-select * from customers where city = ''' 					|| if this '/'' pass, then sql query syntx will be like.. it returns errors if its vulnerable  
-select * from customers where city = ''--' limit 1				|| if this '-- pass, then sql query omit 'limit 1' condition  
+select * from customers where city = ''' 					|| if this ' then query will be city='  '  '  -> single or double quotes 
+select * from customers where city = ''--' limit 1				|| if this '-- then query will be city='  '--  '   -> rest query will be commted 
 						
 select * from customers where city = 'london' or 1=1--				|| or 1=1-- will return all city which means true / encode url 
 		
