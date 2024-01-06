@@ -15,8 +15,9 @@ select * from customers where city = 'london' or 1=1--				|| or 1=1-- will retur
 	
 
 	- SQL injection vulnerability allowing login bypass
-		 
-		 modify the username parameter and giving it the value: administrator'-- 
+
+in the username and password field, pass single qoutes ' on username or password field, or random name and pass then see the error message.. 
+modify the username parameter and giving it the value: administrator'-- 	|| this indicates that username is administrator, and there is no filter on password, is passed by comment.. 
 		 
 	
 	- SQL injection UNION attack (determining the number of columns returned by the query)
