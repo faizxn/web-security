@@ -18,9 +18,15 @@ CSRF  (token is valid till from existing from requst)
  				
 
 	- CSRF where token is not tied to user session
-				+ two account is required to test this, from first account capture the request, from another account capture the same requst and copy the token 
-						and request the token with first account using following token. 
 						
-						
-	- 
+				+ first apply above two technique i.e remove csrf-token and change request method..
+				
+				++ check if csrf token is tied to user session++
+				++ two account is required to test this, from first account capture the request, from another account capture the same requst and copy the token 
+				and request the token with first account using following token. 
+
+				[if token works for once, it would not would not work twice, require refresh for new token]
+
+	- ++++
+				 
 						
