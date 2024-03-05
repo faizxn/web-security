@@ -6,7 +6,9 @@ CSRF  (token is valid till from existing from requst)
 
 	
 	- CSRF where token validation depends on request method
-				+ change request method to GET from POST. then create csrf poc to create crafted html to send to intruders
+				+ by default, with request body email and csrf token is exist,  if we remove csrf token then send request, it will trigger error for csrf token.. 
+				+ change request method to GET from POST, then send the request and observe that email has been updated with csrf or without csrf token..
+				+ for csrf-poc to send victim of create crafted html..
  
 				
 	- CSRF where token validation depends on token being present
