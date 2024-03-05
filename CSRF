@@ -12,10 +12,11 @@ CSRF  (token is valid till from existing from requst)
  
 				
 	- CSRF where token validation depends on token being present
-				+ remove the csrf token and see if application accept the requst
-				+ modify csrf-token with request
-				+ change the request method 
-							
+				+ remove the csrf token and see if application accept the Post requst.. if &csrf= is exist with token, valid token must provide.. or it will error..  
+				+ change the request method from Post to Get..
+				+ for csrf-poc to send victim of create crafted html..
+ 				
+
 	- CSRF where token is not tied to user session
 				+ two account is required to test this, from first account capture the request, from another account capture the same requst and copy the token 
 						and request the token with first account using following token. 
