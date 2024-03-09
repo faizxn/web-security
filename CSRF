@@ -27,10 +27,44 @@ CSRF  (token is valid till from existing from requst)
 
 				[if token works for once, it would not would not work twice, require refresh for new token]
 
-	- 
+
+	- CSRF where token is tied to non-session cookie
+
+				+ It uses tokens to try to prevent CSRF attacks, but they are not fully integrated into the sites session handling system.
+				+ We have two accounts on the application that we can use to help design your attack.  [wiener:peter] | [carlos:montoya]
+
+				+ using Burp suite proxy history of email update. Send the request to Burp Repeater and observe that changing the session cookie logs you out, 
+					but changing the csrfKey cookie merely results in the CSRF token being rejected. This suggests that the csrfKey cookie may not be strictly tied to the session..
+
+				+ Open a private/incognito browser window, log in to your other account, and send a fresh update email request into Burp Repeater.
+					observe that if you swap the csrfKey cookie and csrf parameter from the first account to the second account, the request is accepted.
+
+				+ back to original request, serach "Message", observe that no csrf protection is exist:
+
+						[Request]	GET /?search=Message HTTP/1.1		
+						[Respose]	Set-Cookie: LastSearchTerm=Message; Secure; Http
+						
+						+Modify the Request..
+						
+						[Request]	/?search=Message%0d%0aSet-Cookie:%20csrfKey=YOUR-KEY%3b%20SameSite=None
+						[Respose]	Message Set-Cookie: csrfKey=KeY SameSite=None
+
+
+				+ add CSRF POC and send to victims:
+
+						<img src="https://YOUR-LAB-ID.web-security-academy.net/?search=test%0d%0aSet-Cookie:%20csrfKey=YOUR-KEY%3b%20SameSite=None" onerror="document.forms[0].submit()">
 
 
 
+	-
+
+	- CSRF where Referer validation depends on header being present
+
+			+ this labs email change functionality is vulnerable to CSRF. It attempts to detect and block cross domain requests but the detection mechanism can be bypassed.
+			+ check the brup proxy history and check the resulting request of "Update email" form.
+				- send the request to Burp Repeater. Observe that if you change the domain in the Referer HTTP header, the request is accepted.
+				- add this line of code under <head> tag of html -> <meta name="referrer" content="no-referrer">
+	
 
 	- CSRF with broken Referer validation
 
