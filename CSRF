@@ -27,6 +27,21 @@ CSRF  (token is valid till from existing from requst)
 
 				[if token works for once, it would not would not work twice, require refresh for new token]
 
-	- ++++
-				 
+	- 
+
+
+
+
+	- CSRF with broken Referer validation
+
+			+ this labs email change functionality is vulnerable to CSRF. It attempts to detect and block cross domain requests but the detection mechanism can be bypassed.
+			+ check the brup proxy history and check the resulting request of "Update email" form.
+				-send the request to Burp Repeater. Observe that if you change the domain in the Referer HTTP header, the request is rejected.
+
+			+ with original request add "https://arbitrary-incorrect-domain.net?" before the original url request and send the request and observe it works and accepted.
+				-Referer: https://arbitrary-incorrect-domain.net?YOUR-LAB-ID.web-security-academy.net
+
+			+ Create a CSRF POC. add this "history.pushState("", "", "/?YOUR-LAB-ID.web-security-academy.net")"
+
+
 						
