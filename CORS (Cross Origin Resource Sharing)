@@ -1,3 +1,9 @@
+
+#When testing an application for CORS, we check if any of the application’s responses contain the CORS headers.  We can use the search functionality in Burp Suite to search for the headers quickly. 
+
+"Access-Control-Allow-Credentials"    [Check Options:   Case Sensitive | In-Scope Only]
+
+
 Test-Case-1 # To check this vulerablity .. Add "Origin: www.example.com" at Request Header. 
 Test-Case-2 # If above origin returns then try with "Origin: null".
 Test-Case-3 # If above two does not work, then try adding similar Hostname which are whitelist. 
@@ -6,11 +12,6 @@ Access-Control-Allow-Origin: *
 Access-Control-Allow-Origin: null
 Access-Control-Allow-Origin: example-allowed.com
 
-
-#When testing an application for CORS, we check if any of the application’s responses contain the CORS headers. 
-We can use the search functionality in Burp Suite to search for the headers quickly. 
-
-"Access-Control-Allow-Credentials"    [Check Options:   Case Sensitive | In-Scope Only]
 
 To identify CORS issues, we can modify the Origin header in the requests with multiple values and
 see what response headers we get back from the application. There are four (4) known ways to do this, which we'll go over now. 
