@@ -2,6 +2,7 @@
 
 
 To check this vulerablity .. Add "Origin: www.example.com" at Request Header. 
+If above origin returns then try with "Origin: null".
 
 
 Access-Control-Allow-Origin: * 
