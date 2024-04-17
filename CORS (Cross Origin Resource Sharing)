@@ -1,6 +1,3 @@
-
-
-
 Test-Case-1 # To check this vulerablity .. Add "Origin: www.example.com" at Request Header. 
 Test-Case-2 # If above origin returns then try with "Origin: null".
 Test-Case-3 # If above two does not work, then try adding similar Hostname which are whitelist. 
@@ -35,4 +32,8 @@ This is not a good idea because if one of the subdomains has a Cross-Site Script
 
 4. Null Origin
 Set the Origin header to the null value — Origin: null, and see if the application sets the Access-Control-Allow-Origin header to null. If it does, it means that null origins are whitelisted.
+
+
+
+
 
