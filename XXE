@@ -1,19 +1,24 @@
 
+Internal Entity: If an entity is declared within a DTD it is called as internal entity.
+Syntax: <!ENTITY entity_name "entity_value">
+
+External Entity: If an entity is declared outside a DTD it is called as external entity. Identified by SYSTEM.
+Syntax: <!ENTITY entity_name SYSTEM "entity_value">
 
 
-	<XXE - XML External Entity>  -	DTD (Document Type Definition)
-	
-	https://portswigger.net/web-security/xxe
-	https://corneacristian.medium.com/top-25-xxe-bug-bounty-reports-ab4ca662afad
-	
-	
-	#Types of XXE
 
-		+ Reflected XXE
-		+ Blind XXE
+<XXE - XML External Entity>  -	DTD (Document Type Definition)
+	
+https://corneacristian.medium.com/top-25-xxe-bug-bounty-reports-ab4ca662afad
+	
+	
+#Types of XXE
+
+	+ Reflected XXE
+	+ Blind XXE
 
 	
-	#Examples of XXE Attack Payloads
+#Examples of XXE Attack Payloads
 	
 		+ Resource Exhaustion Attacks
 		+ Data Extraction Attacks
@@ -25,7 +30,6 @@
 		encoding can be	ISO-8859-1 / utf-8
 
 
-	https://insinuator.net/2015/03/xxe-injection-in-apache-batik-library-cve-2015-0250/	
 	
 	SVG for XXE Code Injection
 	
