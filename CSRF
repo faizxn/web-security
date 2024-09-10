@@ -1,6 +1,13 @@
 
+In order for a CSRF attack to be possible:
+	- a relevant action: email change functionality 
+	- cookie based session handling: session cookie
+	- no unpredictable request parameters 
+
+
 CSRF  (token is valid till from existing from requst)
-	
+
+
 	- CSRF vulnerability with no defenses
 				+ there is no csrf-token to validate, we can create csrf poc to create crafted html to send to intruders
 
